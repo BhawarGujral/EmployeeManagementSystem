@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Employee Management System</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
 
-<div align="center">
+<div class="header">
+  <h1>This is the header of my application</h1>
   <h1> Employee Management System </h1>
+<br><br>
+
+<img th:src="@{/image/logo.webp}"><br><br>
+
+</div>
+<div align="center">
+
 
   <a th:href="@{/showAddEmployeeForm}">Add Employee</a> <br> <br>
+
+  <form action="#" th:action="@{/searchEmployee}" method="get">
+
+    Search Employee: <input type="text" name="employeeId">
+    <input type="submit" value="search">
+
+  </form> <br><br>
+
 
   <table border="1">
     <thead>
@@ -32,6 +49,8 @@
     </tbody>
   </table>
 </div>
-
+<div class="footer">
+  <h1>This is the footer of my application</h1>
+</div>
 </body>
 </html>

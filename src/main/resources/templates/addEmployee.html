@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Employee form</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
+
+<div class="header">
+  <h1>This is the header of my application</h1>
+  <h1>Add Employee</h1>
+</div>
 
 <div align="center">
   <h1>Add Employee</h1>
@@ -18,14 +24,17 @@
       <tr>
         <td>First Name: </td>
         <td><input type="text" th:field="*{firstName}"></td>
+        <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></td>
       </tr>
       <tr>
         <td>Last Name: </td>
         <td><input type="text" th:field="*{lastName}"></td>
+        <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></td>
       </tr>
       <tr>
         <td>Email: </td>
         <td><input type="text" th:field="*{email}"></td>
+        <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
       </tr>
       <tr>
         <td><input type="submit"></td>
@@ -34,6 +43,8 @@
     </form>
   </table>
 </div>
-
+<div class="footer">
+  <h1>This is the footer of my application</h1>
+</div>
 </body>
 </html>

@@ -2,12 +2,11 @@ package com.example.EmployeeManagementSystem.controller;
 
 import com.example.EmployeeManagementSystem.entity.Employee;
 import com.example.EmployeeManagementSystem.service.EmployeeServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class EmployeeController {
@@ -31,7 +30,10 @@ public class EmployeeController {
     }
 
     @PostMapping("/addEmployee")
-    public String addEmployee(@ModelAttribute Employee employee){
+    public String addEmployee(@ModelAttribute("employee") @Valid Employee employee, BindingResult bindingResult){
+        if(bindingResult.hasErrors()) {
+            return "addEmployee";
+        }
         employeeService.addEmployee(employee);
         return "redirect:/";
     }
@@ -53,5 +55,12 @@ public class EmployeeController {
     public String updateEmployee(@ModelAttribute Employee employee){
         employeeService.updateEmployee(employee);
         return "redirect:/";
+    }
+
+    @GetMapping("/searchEmployee")
+    public String searchEmployee(@RequestParam int employeeId, Model model){
+        Employee e = employeeService.getEmpByID(employeeId);
+        model.addAttribute("employeeList",e);
+        return "index";
     }
 }
