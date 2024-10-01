@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class EmployeeController {
 
@@ -60,6 +62,13 @@ public class EmployeeController {
     @GetMapping("/searchEmployee")
     public String searchEmployee(@RequestParam int employeeId, Model model){
         Employee e = employeeService.getEmpByID(employeeId);
+        model.addAttribute("employeeList",e);
+        return "index";
+    }
+
+    @GetMapping("/searchEmployeeByName")
+    public String searchEmployeeByName(@RequestParam String name, Model model){
+        List<Employee> e = employeeService.getEmployeeByName(name);
         model.addAttribute("employeeList",e);
         return "index";
     }

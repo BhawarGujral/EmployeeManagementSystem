@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/J2EE
+    username: root
+    password: Bgmomdad@009
+  jpa:
+    hibernate:
+      ddl-auto: none
+#      ddl-auto: none always because we dont want to change anything on production database
+    show-sql: true

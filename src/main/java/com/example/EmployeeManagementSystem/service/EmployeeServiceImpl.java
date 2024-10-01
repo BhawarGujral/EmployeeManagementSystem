@@ -1,6 +1,7 @@
 package com.example.EmployeeManagementSystem.service;
 
 import com.example.EmployeeManagementSystem.entity.Employee;
+import com.example.EmployeeManagementSystem.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -10,37 +11,40 @@ import java.util.Map;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    Map<Integer,Employee> employeeMap = new HashMap<>();
+    private final EmployeeRepository employeeRepository;
 
-    EmployeeServiceImpl(){
-        employeeMap.put(1,new Employee(1,"Bhawar","Gujral","Bhawar@gmail.com"));
-        employeeMap.put(2,new Employee(2,"Paras","Pandey","Paras@gmail.com"));
-        employeeMap.put(3,new Employee(3,"Vanshika","Jalota","Stuti@gmail.com"));
-
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
     public void addEmployee(Employee emp) {
-        employeeMap.put(emp.getId(),emp);
+        employeeRepository.save(emp);
     }
 
     @Override
     public List<Employee> getAllEmployee() {
-        return employeeMap.values().stream().toList();
+        return employeeRepository.findAll();
     }
 
     @Override
     public Employee getEmpByID(int id) {
-        return employeeMap.get(id);
+        return employeeRepository.getReferenceById(id);
     }
 
     @Override
     public void updateEmployee(Employee emp) {
-        employeeMap.put(emp.getId(),emp);
+        employeeRepository.save(emp);
     }
 
     @Override
     public void deleteEmployee(int id) {
-        employeeMap.remove(id);
+        employeeRepository.deleteById(id);
     }
+
+    @Override
+    public List<Employee> getEmployeeByName(String name) {
+        return employeeRepository.findByCriteria(name,"Gujral");
+    }
+
 }
